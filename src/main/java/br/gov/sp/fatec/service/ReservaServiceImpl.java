@@ -20,10 +20,18 @@ public class ReservaServiceImpl implements ReservaService {
 	public void setReservaRepo(ReservaRepository reservaRepo) {
 		this.reservaRepo = reservaRepo;
 	}
+	
+	@Autowired
+	private LivroService livroService;
+
+	public void setLivroService(LivroService livroService) {
+		this.livroService = livroService;
+	}
 
 	@Override
 	@PreAuthorize("isAuthenticated()")
 	public Reserva cadastrar(Reserva reserva) {
+		livroService.decrementarLivro(reserva.getLivro());
 		return reservaRepo.save(reserva);
 	}
 
@@ -48,7 +56,7 @@ public class ReservaServiceImpl implements ReservaService {
 		return retorno;
 	}
 	
-	@Override
+	/*
 	@PreAuthorize("isAuthenticated()")
 	public List<Reserva> findByExemplarLivroNome(String nome) {
 		List<Reserva> retorno = new ArrayList<Reserva>();
@@ -57,4 +65,5 @@ public class ReservaServiceImpl implements ReservaService {
 		}
 		return retorno;
 	}
+	*/
 }

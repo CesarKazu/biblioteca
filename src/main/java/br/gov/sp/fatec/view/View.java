@@ -30,7 +30,9 @@ public class View {
 	public static class Autorizacao {
 	}
 	
-	public static class Livro {
+	public static class LivroResumo {
+	}
+	public static class LivroCompleto extends LivroResumo{
 	}
 	public static class Exemplar {
 	}

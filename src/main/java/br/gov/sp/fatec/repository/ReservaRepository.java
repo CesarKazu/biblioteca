@@ -7,6 +7,4 @@ import br.gov.sp.fatec.model.Reserva;
 public interface ReservaRepository extends CrudRepository<Reserva, Long> {
 
 	public List<Reserva> findByUsuarioNome(String nome);
-
-	public List<Reserva> findByExemplarLivroNomeContainsIgnoreCase(String nome);
 }

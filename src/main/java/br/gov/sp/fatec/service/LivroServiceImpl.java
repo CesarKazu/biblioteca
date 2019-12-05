@@ -40,12 +40,13 @@ public class LivroServiceImpl implements LivroService {
 
 	@Override
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public boolean alterar(Long id, String nome, String descricao) {
-		Optional<Livro> livro = livroRepo.findById(id);
-		if(livro.isPresent()) {
-			Livro l = livro.get();
-			l.setNome(nome);
-			l.setDescricao(descricao);
+	public boolean alterar(Livro livro) {
+		Optional<Livro> obj = livroRepo.findById(livro.getId());
+		if(obj.isPresent()) {
+			Livro l = obj.get();
+			l.setNome(livro.getNome());
+			l.setDescricao(livro.getDescricao());
+			l.setQuantidade(livro.getQuantidade());
 			livroRepo.save(l);
 			return true;
 		}
@@ -53,11 +54,21 @@ public class LivroServiceImpl implements LivroService {
 	}
 
 	@Override
-	@PreAuthorize("isAuthenticated()")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Livro> todos() {
 		List<Livro> retorno = new ArrayList<Livro>();
 		for(Livro livro: livroRepo.findAll()) {
 			retorno.add(livro);
+		}
+		return retorno;
+	}
+	
+	@Override
+	@PreAuthorize("isAuthenticated()")
+	public List<Livro> todosDisponiveis() {
+		List<Livro> retorno = new ArrayList<Livro>();
+		for(Livro livro: livroRepo.findAll()) {
+			if(livro.getQuantidade() > 0) retorno.add(livro);
 		}
 		return retorno;
 	}
@@ -70,5 +81,18 @@ public class LivroServiceImpl implements LivroService {
 			return livro.get();
 		}
 		return null;
+	}
+	
+	@Override
+	@PreAuthorize("isAuthenticated()")
+	public boolean decrementarLivro(Livro livro) {
+		Optional<Livro> obj = livroRepo.findById(livro.getId());
+		if(obj.isPresent()) {
+			Livro l = obj.get();
+			l.setQuantidade(livro.getQuantidade()-1);
+			livroRepo.save(l);
+			return true;
+		}
+		return false;
 	}
 }

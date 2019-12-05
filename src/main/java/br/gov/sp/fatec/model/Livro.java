@@ -24,16 +24,20 @@ public class Livro implements Serializable {
 	@Id 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name = "lvr_id")
-	@JsonView(View.Livro.class)
+	@JsonView(View.LivroCompleto.class)
 	private Long id;
 
 	@Column(name = "lvr_nome", length = 30, nullable = false)
-	@JsonView(View.Livro.class)
+	@JsonView(View.LivroResumo.class)
 	private String nome;
 
 	@Column(name = "lvr_descricao", length = 30, nullable = false)
-	@JsonView(View.Livro.class)
+	@JsonView(View.LivroResumo.class)
 	private String descricao;
+
+	@Column(name = "lvr_quantidade", nullable = false)
+	@JsonView(View.LivroCompleto.class)
+	private int quantidade;
 
 	public Long getId() {
 		return id;
@@ -57,5 +61,13 @@ public class Livro implements Serializable {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 }

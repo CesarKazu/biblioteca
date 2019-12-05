@@ -1,6 +1,7 @@
 package br.gov.sp.fatec.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -30,9 +31,9 @@ public class Reserva implements Serializable {
 	@JsonView(View.Reserva.class)
 	private Long id;
 
-	@Column(name = "data_devolucao", nullable = false)
+	@Column(name = "rsv_data", nullable = false)
 	@JsonView(View.Reserva.class)
-	private String data_devolucao;
+	private Date data;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "rsv_usr_id")
@@ -40,9 +41,9 @@ public class Reserva implements Serializable {
 	private Usuario usuario;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "rsv_exp_id")
+	@JoinColumn(name = "rsv_livro_id")
 	@JsonView(View.Reserva.class)
-	private Exemplar exemplar;
+	private Livro livro;
 
 	public Long getId() {
 		return id;
@@ -52,12 +53,12 @@ public class Reserva implements Serializable {
 		this.id = id;
 	}
 
-	public String getData_devolucao() {
-		return data_devolucao;
+	public Date getData() {
+		return data;
 	}
 
-	public void setData_devolucao(String data_devolucao) {
-		this.data_devolucao = data_devolucao;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public Usuario getUsuario() {
@@ -68,11 +69,11 @@ public class Reserva implements Serializable {
 		this.usuario = usuario;
 	}
 
-	public Exemplar getExemplar() {
-		return exemplar;
+	public Livro getLivro() {
+		return livro;
 	}
 
-	public void setExemplar(Exemplar exemplar) {
-		this.exemplar = exemplar;
+	public void setLivro(Livro livro) {
+		this.livro = livro;
 	}
 }

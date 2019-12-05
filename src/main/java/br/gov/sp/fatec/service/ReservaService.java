@@ -11,5 +11,5 @@ public interface ReservaService {
 	
 	public List<Reserva> findByUsuarioNome(String nome);
 	
-	public List<Reserva> findByExemplarLivroNome(String nome);
+	//public List<Reserva> findByExemplarLivroNome(String nome);
 }

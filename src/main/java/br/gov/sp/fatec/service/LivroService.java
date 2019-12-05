@@ -11,7 +11,11 @@ public interface LivroService {
 
 	public List<Livro> todos();
 
+	public List<Livro> todosDisponiveis();
+
 	public Livro buscarPorId(Long id);
 
-	public boolean alterar(Long id, String nome, String descricao);
+	public boolean alterar(Livro livro);
+	
+	public boolean decrementarLivro(Livro livro);
 }

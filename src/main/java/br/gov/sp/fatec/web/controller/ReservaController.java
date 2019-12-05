@@ -30,7 +30,7 @@ public class ReservaController {
 	}
 	
 	@RequestMapping(value = "/cadastrar", method = RequestMethod.POST)
-	@JsonView(View.Exemplar.class)
+	@JsonView(View.Reserva.class)
 	public ResponseEntity<Reserva> cadastrar(@RequestBody Reserva reserva, UriComponentsBuilder uriComponentsBuilder) {
 		reserva = reservaService.cadastrar(reserva);
 		HttpHeaders responseHeaders = new HttpHeaders();
@@ -39,7 +39,7 @@ public class ReservaController {
 	}
 	
 	@RequestMapping(value = "/excluir", method = RequestMethod.DELETE)
-	@JsonView(View.Exemplar.class)
+	@JsonView(View.Reserva.class)
 	public ResponseEntity<String> excluir(@RequestParam(value="id") Long id, UriComponentsBuilder uriComponentsBuilder) {
 		boolean success = reservaService.excluir(id);
 		if(success) {
@@ -49,14 +49,15 @@ public class ReservaController {
 	}
 	
 	@RequestMapping(value = "/reservaByUsuarioNome", method = RequestMethod.GET)
-	@JsonView(View.Exemplar.class)
+	@JsonView(View.Reserva.class)
 	public ResponseEntity<Collection<Reserva>> reservaByUsuarioNome(@RequestParam(value="nome") String nome, UriComponentsBuilder uriComponentsBuilder) {
 		return new ResponseEntity<Collection<Reserva>>(reservaService.findByUsuarioNome(nome), HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/findByExemplarLivroNome", method = RequestMethod.GET)
-	@JsonView(View.Exemplar.class)
+	/*
+	@JsonView(View.Reserva.class)
 	public ResponseEntity<Collection<Reserva>> findByExemplarLivroNome(@RequestParam(value="nome") String nome, UriComponentsBuilder uriComponentsBuilder) {
 		return new ResponseEntity<Collection<Reserva>>(reservaService.findByExemplarLivroNome(nome), HttpStatus.OK);
 	}
+	*/
 }
